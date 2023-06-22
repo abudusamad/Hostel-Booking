@@ -18,7 +18,6 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { tokens } from "../../theme";
 
-
 const Item = ({ title, to, icon, selected, setSelected }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
@@ -68,8 +67,8 @@ const Sidebar = () => {
 				"& .pro-menu-item.active": {
 					color: "#6870fa !important",
 				},
-			} }
-			style={{height:"120vh"}}
+			}}
+			style={{ height: "120vh" }}
 		>
 			{activeMenu && (
 				<>
@@ -80,8 +79,12 @@ const Sidebar = () => {
 								onClick={() => setIsCollapsed(!isCollapsed)}
 								icon={
 									isCollapsed ? (
-										<p className="text-3xl
-										 ">HnH</p>
+										<p
+											className="text-3xl
+										 "
+										>
+											HnH
+										</p>
 									) : undefined
 								}
 								style={{
@@ -99,9 +102,9 @@ const Sidebar = () => {
 										<Typography variant="h3" color={colors.grey[100]}>
 											HnH
 										</Typography>
-										<IconButton onClick={ () => setIsCollapsed(!isCollapsed) }>
+										<IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
 											<Tooltip title="Close Menu">
-											<CloseIcon />
+												<CloseIcon />
 											</Tooltip>
 										</IconButton>
 									</Box>
