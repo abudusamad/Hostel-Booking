@@ -132,7 +132,7 @@ const HostelList = () => {
 							justifyContent="space-between"
 							alignhostel="center"
 							flexDirection="column"
-							// backgroundColor={colors.blueAccent[500]}
+							
 						>
 							<button
 								onClick={() => handleLike(index)}
