@@ -7,11 +7,13 @@ import CardMedia from "@mui/material/CardMedia";
 import React, { useState } from "react";
 import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
+import Dropdown from "./DropDown";
 
 const HostelList = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const handleLike = (index) => {
 		const isLiked = likedItems.includes(index);
@@ -24,6 +26,10 @@ const HostelList = () => {
 			setLikedItems(updatedItems);
 		}
 	};
+	const toggleDropdown = () => {
+		setIsOpen(!isOpen);
+	};
+
 	return (
 		<div>
 			{hostels.map((hostel, index) => (
@@ -51,7 +57,8 @@ const HostelList = () => {
 						<Box paddingX="5.5rem" paddingTop="1rem">
 							<Tooltip title="Settings">
 								<IconButton aria-label="settings">
-									<MoreVertIcon />
+									<MoreVertIcon onClick={toggleDropdown} />
+									<Dropdown />
 								</IconButton>
 							</Tooltip>
 						</Box>
@@ -148,7 +155,16 @@ const HostelList = () => {
 						</Box>
 					</Box>
 				</Box>
-			)) }
+			))}
+			<div>
+				{isOpen && (
+					<ul>
+						<li>Option 1</li>
+						<li>Option 2</li>
+						<li>Option 3</li>
+					</ul>
+				)}
+			</div>
 		</div>
 	);
 };

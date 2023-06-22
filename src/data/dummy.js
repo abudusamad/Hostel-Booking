@@ -50,7 +50,6 @@ import product6 from "./product6.jpg";
 import product7 from "./product7.jpg";
 import product8 from "./Product8.jpg";
 import product9 from "./product9.jpg";
-import img1 from "./img1.jpg";
 import product10 from "./product10.jpg"
 
 export const gridOrderImage = (props) => (
@@ -642,7 +641,7 @@ export const hostels = [
 		name: "Adom Hostel",
 		address: "123 Street, City A",
 		price: "$100",
-		image: img1,
+		image: product10,
 		likes: <StarIcon />,
 		dislikes: <StarHalfIcon />,
 		location: <LocationOnIcon />,
