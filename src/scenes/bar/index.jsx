@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { hostels } from "../../data/dummy";
 
 const ComponentList = () => {
 	const [currentPage, setCurrentPage] = useState(1);

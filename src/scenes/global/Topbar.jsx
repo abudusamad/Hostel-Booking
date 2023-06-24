@@ -1,26 +1,36 @@
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
+import {
+	AppBar,
+	Avatar,
+	Box,
+	Container,
+	IconButton,
+	Menu,
+	MenuItem,
+	Tooltip,
+	useTheme,
+} from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import { useContext, useEffect, useState } from "react";
-import Notification from "../../components/Notification";
-import Settings from "../../components/Settings";
-import UserProfile from "../../components/UserProfile";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useStateContext } from "../../contexts/ContextProvider";
+import { auth } from "../../lib/firebase";
 import { ColorModeContext, tokens } from "../../theme";
-
 const Topbar = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const colorMode = useContext(ColorModeContext);
-	const [isClicked, setIsClicked] = useState(false);
 	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
 		useStateContext();
+
+	const { currentUser, setDarkMode } = useContext(AuthContext);
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -39,11 +49,22 @@ const Topbar = () => {
 			setActiveMenu(true);
 		}
 	}, [screenSize]);
-	const handleClick = () => {
-		setIsClicked(true);
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
+	const navigate = useNavigate();
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
 	};
 
 	const handleActiveMenu = () => setActiveMenu(!activeMenu);
+	const handleLogout = async () => {
+		await auth.signOut().then(() => navigate("/"));
+	};
 
 	return (
 		<Box display="flex" justifyContent="space-between" p={2}>
@@ -59,7 +80,7 @@ const Topbar = () => {
 					display="flex"
 					backgroundColor={colors.primary[400]}
 					borderRadius="3px"
-					marginRight="10px"
+					marginLeft="10px"
 				>
 					<InputBase
 						sx={{ ml: 2, flex: 1, width: "75%" }}
@@ -94,15 +115,57 @@ const Topbar = () => {
 						<SettingsOutlinedIcon onClick={() => handleClick} />
 					</Tooltip>
 				</IconButton>
-				<IconButton>
+				<IconButton
+					id="demo-positioned-menu"
+					onClick={handleClick}
+					size="small"
+					aria-controls={open ? "demo-positioned-menu" : undefined}
+					aria-haspopup="true"
+					aria-expanded={open ? "true" : undefined}
+				>
 					<Tooltip title="UserProfile">
-						<PersonOutlinedIcon onClick={() => handleClick} />
+						<Avatar
+							src={currentUser?.photoURL}
+							sx={{ width: 35, height: 35 }}
+						/>
 					</Tooltip>
 				</IconButton>
-				{isClicked && <Settings />}
-				{isClicked && <Notification />}
-				{isClicked && <UserProfile />}
 			</Box>
+			<AppBar display="sticky" color="inherit">
+				<Container maxWidth="lg">
+					<Menu
+						id="demo-positioned-menu"
+						aria-labelledby="demo-positioned-button"
+						anchorEl={anchorEl}
+						open={open}
+						onClose={handleClose}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "left",
+						}}
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "left",
+						}}
+					>
+						<MenuItem
+							onClick={() => {
+								handleClose();
+
+								navigate("/my-profile");
+							}}
+						>
+							My Profile
+						</MenuItem>
+						<MenuItem onClick={handleLogout}>
+							<IconButton>
+								<LogoutOutlinedIcon />
+							</IconButton>
+							Logout
+						</MenuItem>
+					</Menu>
+				</Container>
+			</AppBar>
 		</Box>
 	);
 };

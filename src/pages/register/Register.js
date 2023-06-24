@@ -15,6 +15,7 @@ import * as React from "react";
 import { useState } from "react";
 import "../../signup.css";
 import { tokens } from "../../theme";
+import Login from "../../scenes/login/Login";
 function Copyright(props) {
 	return (
 		<Typography
@@ -143,6 +144,16 @@ export default function SignUp() {
 								>
 									Sign Up
 								</Button>
+								<Grid container justifyContent="flex-end">
+									<Grid item>
+										<button
+											
+										>
+											<Login/>
+										</button>
+									</Grid>
+								</Grid>
+
 								<Grid container justifyContent="flex-end">
 									<Grid item>
 										<button

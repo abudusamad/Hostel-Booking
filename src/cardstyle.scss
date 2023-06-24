@@ -1,0 +1,8 @@
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 10px;
+  max-width: 900px; /* Optional: Set a max-width to limit the width of the grid */
+  margin: 0 auto; /* Optional: Center the grid horizontally */
+}

@@ -5,7 +5,7 @@ import Dashboard from "./scenes/dashboard";
 import Geography from "./scenes/geography";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
-import LogIn from "./scenes/login";
+import LogIn from "./scenes/login/Login";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import FAQ from "./scenes/faq";
