@@ -15,7 +15,6 @@ import * as React from "react";
 import { useState } from "react";
 import "../../signup.css";
 import { tokens } from "../../theme";
-import Login from "../../scenes/login/Login";
 function Copyright(props) {
 	return (
 		<Typography
@@ -57,10 +56,8 @@ export default function SignUp() {
 			{isSignup ? (
 				<Box
 					backgroundColor={colors.primary[400]}
-					position="absolute"
-					right="40%"
-					top="50%"
 					transform="translate(-50%, -50%)"
+					className=" absolute top-48 left-1/3 mx-auto"
 				>
 					<Container component="main" maxWidth="xs" className="SignUp">
 						<CssBaseline />
@@ -87,6 +84,7 @@ export default function SignUp() {
 								<Grid container spacing={2}>
 									<Grid item xs={12} sm={6}>
 										<TextField
+											className="text-3xl"
 											autoComplete="given-name"
 											name="firstName"
 											required
@@ -145,13 +143,6 @@ export default function SignUp() {
 									Sign Up
 								</Button>
 								<Grid container justifyContent="flex-end">
-									<Grid item>
-										<button
-											
-										>
-											<Login/>
-										</button>
-									</Grid>
 								</Grid>
 
 								<Grid container justifyContent="flex-end">

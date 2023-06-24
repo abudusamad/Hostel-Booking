@@ -42,6 +42,7 @@ import avatar2 from "./avatar2.jpg";
 import avatar3 from "./avatar3.png";
 import avatar4 from "./avatar4.jpg";
 import product1 from "./product1.jpg";
+import product10 from "./product10.jpg";
 import product2 from "./product2.jpg";
 import product3 from "./product3.jpg";
 import product4 from "./product4.jpg";
@@ -50,7 +51,6 @@ import product6 from "./product6.jpg";
 import product7 from "./product7.jpg";
 import product8 from "./Product8.jpg";
 import product9 from "./product9.jpg";
-import product10 from "./product10.jpg"
 
 export const gridOrderImage = (props) => (
 	<div>
@@ -474,6 +474,7 @@ export const customersGrid = [
 	},
 ];
 
+
 export const hostels = [
 	{
 		name: "Brunei-Complex",
@@ -487,11 +488,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "October 19,2023",
+		available: "No Wifi ",
 	},
 	{
 		name: "Hall 7",
@@ -505,11 +505,11 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "12 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.2",
 		reviews: "400 reviews",
 		namLoc: "Indece",
 		date: "November 19,2023",
+		available: "No  Wifi",
 	},
 	{
 		name: "Brunei-Complex",
@@ -523,11 +523,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "December 19,2023",
+		available: "Wifi Available",
 	},
 	{
 		name: "Brunei-Complex",
@@ -541,11 +540,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "January 12,2023",
+		available: "Wifi Available",
 	},
 	{
 		name: "Brunei-Complex",
@@ -559,11 +557,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "October 19,2023",
+		available: "Wifi Available",
 	},
 	{
 		name: "Brunei-Complex",
@@ -577,11 +574,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "October 19,2023",
+		available: "No Wifi ",
 	},
 	{
 		name: "Brunei-Complex",
@@ -595,11 +591,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "October 19,2023",
+		available: "Wifi Available",
 	},
 	{
 		name: "Brunei-Complex",
@@ -613,11 +608,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "October 19,2023",
+		available: "Wifi Available",
 	},
 	{
 		name: "Brunei-Complex",
@@ -631,29 +625,10 @@ export const hostels = [
 		bed: <SingleBedIcon />,
 		favourite: <FavoriteBorderIcon />,
 		number: "2 bed",
-		discriptions: "This is a five star hostel at Knust campus",
 		rating: "4.9",
 		reviews: "300 reviews",
 		namLoc: "Knust",
-		date: "October 19,2023",
-	},
-	{
-		name: "Adom Hostel",
-		address: "123 Street, City A",
-		price: "$100",
-		image: product10,
-		likes: <StarIcon />,
-		dislikes: <StarHalfIcon />,
-		location: <LocationOnIcon />,
-		wifi: <WifiIcon />,
-		bed: <SingleBedIcon />,
-		favourite: <FavoriteBorderIcon />,
-		number: "15 bed",
-		discriptions: "This is a five star hostel at Knust campus",
-		rating: "3.8",
-		reviews: "400 reviews",
-		namLoc: "Ayedusase",
-		date: "October 19,2023",
+		available: "Wifi Available",
 	},
 ];
 

@@ -5,6 +5,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+
 import {
 	AppBar,
 	Avatar,
@@ -17,12 +18,12 @@ import {
 	useTheme,
 } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
 import { useStateContext } from "../../contexts/ContextProvider";
-import { auth } from "../../lib/firebase";
 import { ColorModeContext, tokens } from "../../theme";
+import { hostels } from "../../data/dummy";
+
 const Topbar = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
@@ -30,7 +31,6 @@ const Topbar = () => {
 	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
 		useStateContext();
 
-	const { currentUser, setDarkMode } = useContext(AuthContext);
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -62,10 +62,6 @@ const Topbar = () => {
 	};
 
 	const handleActiveMenu = () => setActiveMenu(!activeMenu);
-	const handleLogout = async () => {
-		await auth.signOut().then(() => navigate("/"));
-	};
-
 	return (
 		<Box display="flex" justifyContent="space-between" p={2}>
 			{/* SEARCH BAR */}
@@ -125,7 +121,7 @@ const Topbar = () => {
 				>
 					<Tooltip title="UserProfile">
 						<Avatar
-							src={currentUser?.photoURL}
+							src={hostels}
 							sx={{ width: 35, height: 35 }}
 						/>
 					</Tooltip>
@@ -157,7 +153,7 @@ const Topbar = () => {
 						>
 							My Profile
 						</MenuItem>
-						<MenuItem onClick={handleLogout}>
+						<MenuItem onClick={handleClose}>
 							<IconButton>
 								<LogoutOutlinedIcon />
 							</IconButton>

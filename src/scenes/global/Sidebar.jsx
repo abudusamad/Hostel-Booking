@@ -68,7 +68,7 @@ const Sidebar = () => {
 					color: "#6870fa !important",
 				},
 			}}
-			style={{ height: "120vh" }}
+			style={{ height: "150vh" }}
 		>
 			{activeMenu && (
 				<>
