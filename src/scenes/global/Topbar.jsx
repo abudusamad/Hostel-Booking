@@ -121,7 +121,7 @@ const Topbar = () => {
 				>
 					<Tooltip title="UserProfile">
 						<Avatar
-							src={hostels}
+							src={hostels.image}
 							sx={{ width: 35, height: 35 }}
 						/>
 					</Tooltip>

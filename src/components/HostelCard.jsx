@@ -3,10 +3,12 @@ import { Box, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
+
 const HostelList = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
+	  const [currentPage, setCurrentPage] = useState("home");
 
 	const handleLike = (index) => {
 		const isLiked = likedItems.includes(index);
@@ -20,32 +22,49 @@ const HostelList = () => {
 		}
 	};
 
+	
+//   const renderPage = () => {
+// 		switch (currentPage) {
+// 			case "reserve":
+// 				return <HotelInfo />;
+			
+// 		}
+// 	};
+
+
 	return (
 		<div>
 			<Box sx={{ flexGrow: 1 }}>
 				<Grid container spacing={1}>
 					{hostels?.map((hostel, index) => (
-						<Grid key={index} xs={12} md={3} className="mx-3 my-5">
+						<Grid
+							key={index}
+							xs={12}
+							md={3}
+							className="mx-3 my-5  rounded-2xl shadow-2xl"
+							sx={{ backgroundColor: colors.primary[400] }}
+							onClick={() => setCurrentPage("reserve")}
+						>
 							<img
 								src={hostel.image}
 								alt={`Hostel ${index + 1}`}
 								style={{
-									borderRadius: "14px",
-									boxShadow: "1px 1px 3px 0.5px",
 									width: "auto",
 									height: "60%",
 								}}
 							/>
 							<Box display="flex" flexDirection="column">
 								<Typography
-									variant="h4 "
-									color={colors.grey[100]}
+									variant="h2 "
+									color={colors.greenAccent[200]}
 									fontWeight="bold"
-									className="pt-2 pb-2"
+									className="pt-2 pb-2 pl-3 uppercase"
 								>
 									{hostel.name}
 								</Typography>
-								<Typography variant="h5">{hostel.address}</Typography>
+								<Typography variant="h5" className="pl-3">
+									{hostel.address}
+								</Typography>
 								<Box
 									display="flex"
 									alignhostel="center"
@@ -84,7 +103,7 @@ const HostelList = () => {
 											<IconButton>{hostel.wifi}</IconButton>
 										</Tooltip>
 									</Box>
-									<Box  className="flex">
+									<Box className="flex">
 										<button
 											onClick={() => handleLike(index)}
 											className={likedItems.includes(index) ? "Liked" : ""}
@@ -92,7 +111,11 @@ const HostelList = () => {
 											{likedItems.includes(index) ? "Liked" : "like"}
 											<IconButton>{hostel.favourite}</IconButton>
 										</button>
-										<Box display="flex" color={colors.grey[100]} className="pt-2">
+										<Box
+											display="flex"
+											color={colors.grey[100]}
+											className="pt-2"
+										>
 											<Typography
 												variant="h5"
 												color={colors.grey[100]}
