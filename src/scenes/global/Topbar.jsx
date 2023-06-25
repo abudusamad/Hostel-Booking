@@ -146,9 +146,8 @@ const Topbar = () => {
 					>
 						<MenuItem
 							onClick={() => {
-								handleClose();
-
 								navigate("/my-profile");
+								handleClose();
 							}}
 						>
 							My Profile

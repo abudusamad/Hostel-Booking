@@ -1,19 +1,25 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
+import ComponentList from "./scenes/bar";
+import Calendar from "./scenes/calendar/calendar";
 import Dashboard from "./scenes/dashboard";
+import FAQ from "./scenes/faq";
 import Geography from "./scenes/geography";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
+import Invoices from "./scenes/invoices";
 import LogIn from "./scenes/login/Login";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/calendar";
-import FAQ from "./scenes/faq";
-import Invoices from "./scenes/invoices";
-import ComponentList from "./scenes/bar";
+import MyProfile from "./pages/register/MyProfile.jsx"
+import HotelInfo from "./pages/register/HotelInfo";
+
 function App() {
 	const [theme, colorMode] = useMode();
 	const [isSidebar, setIsSidebar] = useState(true);
+
+	const queryClient = new QueryClient();
 
 	return (
 		<ColorModeContext.Provider value={colorMode}>
@@ -23,16 +29,19 @@ function App() {
 					<Sidebar isSidebar={isSidebar} />
 					<main className="content">
 						<Topbar setIsSidebar={setIsSidebar} />
-
-						<Routes>
-							<Route path="/" element={<Dashboard />} />
-							<Route path="/geography" element={<Geography />} />
-							<Route path="/login" element={ <LogIn /> } />
-							<Route path="/calendar" element={<Calendar/>} />
-							<Route path="/faq" element={<FAQ/>} />
-							<Route path="/invoices" element={<Invoices/>} />
-							<Route path="/bar" element={<ComponentList/>} />
-						</Routes>
+						<QueryClientProvider client={queryClient}>
+							<Routes>
+								<Route path="/" element={<Dashboard />} />
+								<Route path="/geography" element={<Geography />} />
+								<Route path="/login" element={<LogIn />} />
+								<Route path="/calendar" element={<Calendar />} />
+								<Route path="/faq" element={<FAQ />} />
+								<Route path="/invoices" element={<Invoices />} />
+								<Route path="/bar" element={<ComponentList />} />
+								<Route path="/my-profile" element={<MyProfile />} />
+								<Route path="/reserve" element={<HotelInfo />} />
+							</Routes>
+						</QueryClientProvider>
 					</main>
 				</div>
 			</ThemeProvider>

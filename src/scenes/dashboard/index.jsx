@@ -5,8 +5,8 @@ const Dashboard = () => {
 	return (
 		<Box m="20px">
 			<Box>
-				<HostelList />
 			</Box>
+				<HostelList />
 		</Box>
 	);
 };

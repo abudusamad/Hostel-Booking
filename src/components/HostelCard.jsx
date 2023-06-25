@@ -3,12 +3,12 @@ import { Box, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
+import { useNavigate } from "react-router-dom";
 
-const HostelList = () => {
+const HostelList = ({reserve}) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
-	  const [currentPage, setCurrentPage] = useState("home");
 
 	const handleLike = (index) => {
 		const isLiked = likedItems.includes(index);
@@ -21,16 +21,7 @@ const HostelList = () => {
 			setLikedItems(updatedItems);
 		}
 	};
-
-	
-//   const renderPage = () => {
-// 		switch (currentPage) {
-// 			case "reserve":
-// 				return <HotelInfo />;
-			
-// 		}
-// 	};
-
+	const navigate =useNavigate()
 
 	return (
 		<div>
@@ -41,9 +32,8 @@ const HostelList = () => {
 							key={index}
 							xs={12}
 							md={3}
-							className="mx-3 my-5  rounded-2xl shadow-2xl"
+							className="mx-3 my-5 rounded-2xl  shadow-2xl"
 							sx={{ backgroundColor: colors.primary[400] }}
-							onClick={() => setCurrentPage("reserve")}
 						>
 							<img
 								src={hostel.image}
@@ -52,6 +42,7 @@ const HostelList = () => {
 									width: "auto",
 									height: "60%",
 								}}
+								onClick={( )=> navigate('/reserve')}
 							/>
 							<Box display="flex" flexDirection="column">
 								<Typography

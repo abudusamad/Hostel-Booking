@@ -62,10 +62,10 @@ const Sidebar = () => {
 					padding: "5px 35px 5px 20px !important",
 				},
 				"& .pro-inner-item:hover": {
-					color: "#868dfb !important",
+					color: "#70d8bd !important",
 				},
 				"& .pro-menu-item.active": {
-					color: "#6870fa !important",
+					color: "#70d8bd !important",
 				},
 			}}
 			style={{ height: "150vh" }}
@@ -99,7 +99,7 @@ const Sidebar = () => {
 										alignItems="center"
 										ml="15px"
 									>
-										<Typography variant="h3" color={colors.grey[100]}>
+										<Typography variant="h2" color={colors.grey[100]}>
 											HnH
 										</Typography>
 										<IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
