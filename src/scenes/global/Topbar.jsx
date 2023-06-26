@@ -3,6 +3,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
@@ -20,17 +21,18 @@ import {
 import InputBase from "@mui/material/InputBase";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useStateContext } from "../../contexts/ContextProvider";
+import { auth } from "../../lib/firebase";
 import { ColorModeContext, tokens } from "../../theme";
-import { hostels } from "../../data/dummy";
 
 const Topbar = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const colorMode = useContext(ColorModeContext);
+	const { currentUser } = useContext(AuthContext);
 	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
 		useStateContext();
-
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -59,6 +61,9 @@ const Topbar = () => {
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
+	};
+	const handleLogout = async () => {
+		await auth.signOut().then(() => navigate("/"));
 	};
 
 	const handleActiveMenu = () => setActiveMenu(!activeMenu);
@@ -121,7 +126,7 @@ const Topbar = () => {
 				>
 					<Tooltip title="UserProfile">
 						<Avatar
-							src={hostels.image}
+							src={currentUser?.photoURL}
 							sx={{ width: 35, height: 35 }}
 						/>
 					</Tooltip>
@@ -150,13 +155,18 @@ const Topbar = () => {
 								handleClose();
 							}}
 						>
-							My Profile
-						</MenuItem>
-						<MenuItem onClick={handleClose}>
 							<IconButton>
-								<LogoutOutlinedIcon />
+								<Tooltip title="Profile">
+									<PersonOutlineOutlinedIcon />
+								</Tooltip>
 							</IconButton>
-							Logout
+						</MenuItem>
+						<MenuItem onClick={handleLogout}>
+							<IconButton>
+								<Tooltip title="LogOut">
+									<LogoutOutlinedIcon />
+								</Tooltip>
+							</IconButton>
 						</MenuItem>
 					</Menu>
 				</Container>
