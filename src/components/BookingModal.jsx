@@ -1,36 +1,31 @@
+import React, { useContext, useEffect, useState } from "react";
+import "react-date-range/dist/styles.css"; //
+import "react-date-range/dist/theme/default.css";
 import {
+	Modal,
+	Typography,
 	Box,
-	Button,
 	FormControl,
 	InputLabel,
-	MenuItem,
-	Modal,
 	Select,
-	Typography,
-	useTheme,
+	MenuItem,
+	Button,
 } from "@mui/material";
-import { getDate } from "date-fns";
-import React, { useEffect, useState } from "react";
 import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css"; 
-import "react-date-range/dist/theme/default.css";
+import { getDate } from "date-fns";
 import { AuthContext } from "../contexts/AuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { LoadingSpinner } from "../components/LoadingSpinner";
-
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { bookModalStyle } from "../helper/styles";
-import { tokens } from "../theme";
+import { useNavigate } from "react-router-dom";
 
 export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 	const { currentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [guests, setGuests] = useState();
 	const [selectedGuestCount, setSelectedGuestCount] = useState(1);
-	const theme = useTheme();
-	const colors = tokens(theme.palette.mode);
 	const [dates, setDates] = useState([
 		{
 			startDate: new Date(),
@@ -71,16 +66,28 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 	const handleReserve = async () => {
 		setIsLoading(true);
 		const { uid, displayName } = currentUser;
-
-		(() => {
-			toast.success("booking successfull");
-			handleClose();
-			navigate("/my-profile");
-			setIsLoading(false);
-		}).catch((error) => {
-			toast.error(error);
-			setIsLoading(false);
-		});
+		await addDoc(bookings, {
+			hotelAddress: hotelInfo.address,
+			hotelName: hotelInfo.name,
+			numberOfGuests: selectedGuestCount,
+			bookingStartDate: `${dates[0].startDate}`,
+			bookingEndDate: `${dates[0].endDate}`,
+			price: hotelInfo?.pricePerNight * getTotalNightsBooked(),
+			bookedBy: {
+				uid,
+				displayName,
+			},
+		})
+			.then(() => {
+				toast.success("booking successfull");
+				handleClose();
+				navigate("/my-profile");
+				setIsLoading(false);
+			})
+			.catch((error) => {
+				toast.error(error);
+				setIsLoading(false);
+			});
 	};
 
 	return (
@@ -89,21 +96,20 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 			onClose={handleClose}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
-			backgroundColor={colors.primary[400]}
 		>
-			<Box sx={bookModalStyle} backgroundColor={colors.primary[400]}>
+			<Box sx={bookModalStyle}>
 				<Typography id="modal-modal-title" variant="h6" component="h2">
-					GH{hotelInfo?.pricePerNight} /Per Year
+					${hotelInfo?.pricePerNight} /night
 				</Typography>
 				<FormControl fullWidth sx={{ marginTop: 3 }}>
 					<InputLabel id="demo-simple-select-label">
-						Number of Student
+						Number of Guests
 					</InputLabel>
 					<Select
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"
 						value={selectedGuestCount}
-						label="Number of student Per room"
+						label="Number of Adults"
 						onChange={handleChange}
 					>
 						{guests?.map((guest) => (
@@ -138,7 +144,7 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 						variant="h6"
 					>
 						${hotelInfo?.pricePerNight} x{" "}
-						{dates[0]?.endDate ? getTotalNightsBooked() : 0} Per Year
+						{dates[0]?.endDate ? getTotalNightsBooked() : 0} nights
 					</Typography>
 
 					<Typography
@@ -172,11 +178,10 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 					disabled={!dates[0].endDate}
 				>
 					{isLoading ? (
-            <LoadingSpinner color={"primary"} size={20} />
-          ) : (
-            "Reserve"
-          )}
-					Reserve
+						<LoadingSpinner color={"primary"} size={20} />
+					) : (
+						"Reserve"
+					)}
 				</Button>
 			</Box>
 		</Modal>
