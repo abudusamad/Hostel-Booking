@@ -12,12 +12,12 @@ import {
 import { getDate } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css"; //
+import "react-date-range/dist/styles.css"; 
 import "react-date-range/dist/theme/default.css";
-// import { AuthContext } from "../contexts/AuthContext";
-// import { addDoc, collection } from "firebase/firestore";
-// import { db } from "../lib/firebase";
-// import { LoadingSpinner } from "../components/LoadingSpinner";
+import { AuthContext } from "../contexts/AuthContext";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../lib/firebase";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,7 @@ import { bookModalStyle } from "../helper/styles";
 import { tokens } from "../theme";
 
 export const BookingModal = ({ open, handleClose, hotelInfo }) => {
-	// const { currentUser } = useContext(AuthContext);
+	const { currentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [guests, setGuests] = useState();
 	const [selectedGuestCount, setSelectedGuestCount] = useState(1);
@@ -66,11 +66,11 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 
 	getTotalNightsBooked();
 
-	// const bookings = collection(db, "bookings");
+	const bookings = collection(db, "bookings");
 
 	const handleReserve = async () => {
 		setIsLoading(true);
-		// const { uid, displayName } = currentUser;
+		const { uid, displayName } = currentUser;
 
 		(() => {
 			toast.success("booking successfull");
@@ -171,11 +171,11 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 					color="primary"
 					disabled={!dates[0].endDate}
 				>
-					{/* {isLoading ? (
+					{isLoading ? (
             <LoadingSpinner color={"primary"} size={20} />
           ) : (
             "Reserve"
-          )} */}
+          )}
 					Reserve
 				</Button>
 			</Box>
