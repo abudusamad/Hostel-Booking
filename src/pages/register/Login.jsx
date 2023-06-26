@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
+
 export default function Login() {
 	const navigate = useNavigate();
 
