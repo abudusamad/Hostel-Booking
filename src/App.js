@@ -14,6 +14,7 @@ import LogIn from "./scenes/login/Login";
 import { ColorModeContext, useMode } from "./theme";
 import MyProfile from "./pages/register/MyProfile.jsx"
 import HotelInfo from "./pages/register/HotelInfo";
+import Login from "./pages/register/Login";
 
 function App() {
 	const [theme, colorMode] = useMode();
@@ -31,6 +32,7 @@ function App() {
 						<Topbar setIsSidebar={setIsSidebar} />
 						<QueryClientProvider client={queryClient}>
 							<Routes>
+								<Route path="/" element={<Login />} />
 								<Route path="/" element={<Dashboard />} />
 								<Route path="/geography" element={<Geography />} />
 								<Route path="/login" element={<LogIn />} />
