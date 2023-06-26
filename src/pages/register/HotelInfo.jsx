@@ -11,7 +11,6 @@ import React, {  useState } from "react";
 import { useParams } from "react-router-dom";
 import { BookingModal } from "../../components/BookingModal";
 import { Toaster } from "react-hot-toast";
-import { getHotelBySlug } from "../../api/request";
 import { useQuery } from "react-query";
 import { tokens } from "../../theme";
 
@@ -24,7 +23,6 @@ export default function HotelInfo() {
   const { slug } = params;
 
   const fetchHoteInfo = async () => {
-    const { data } = await getHotelBySlug(slug);
     return data;
   };
 
