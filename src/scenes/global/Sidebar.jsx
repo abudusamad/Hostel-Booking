@@ -116,7 +116,7 @@ const Sidebar = () => {
 							>
 								<Item
 									title="Dashboard"
-									to="/"
+									to="/dashboard"
 									icon={
 										<Tooltip title="Dashboard">
 											<HomeOutlinedIcon />

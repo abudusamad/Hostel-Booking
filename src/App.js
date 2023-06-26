@@ -10,7 +10,6 @@ import Geography from "./scenes/geography";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
 import Invoices from "./scenes/invoices";
-import LogIn from "./scenes/login/Login";
 import { ColorModeContext, useMode } from "./theme";
 import MyProfile from "./pages/register/MyProfile.jsx"
 import HotelInfo from "./pages/register/HotelInfo";
@@ -33,9 +32,8 @@ function App() {
 						<QueryClientProvider client={queryClient}>
 							<Routes>
 								<Route path="/" element={<Login />} />
-								<Route path="/" element={<Dashboard />} />
+								<Route path="/dashboard" element={<Dashboard />} />
 								<Route path="/geography" element={<Geography />} />
-								<Route path="/login" element={<LogIn />} />
 								<Route path="/calendar" element={<Calendar />} />
 								<Route path="/faq" element={<FAQ />} />
 								<Route path="/invoices" element={<Invoices />} />

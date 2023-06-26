@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Container, Button, Typography } from "@mui/material";
+import { Container, Typography ,IconButton } from "@mui/material";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider, db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function Login() {
 	};
 
 	useEffect(() => {
-		auth.onAuthStateChanged((user) => user && navigate("/hotels"));
+		auth.onAuthStateChanged((user) => user && navigate("/dashboard"));
 	});
 
 	return (
@@ -39,11 +40,11 @@ export default function Login() {
 				maxWidth="md"
 			>
 				<Typography textAlign={"center"} variant="h4" sx={{ marginBottom: 4 }}>
-				hnh Accommodation
+					hnh Accommodation
 				</Typography>
-				<Button onClick={handleLogin} variant="outlined" color="primary">
-					Login with google
-				</Button>
+				<IconButton onClick={handleLogin}>
+					<FcGoogle />
+				</IconButton>
 			</Container>
 			<Toaster
 				position="top-right"
