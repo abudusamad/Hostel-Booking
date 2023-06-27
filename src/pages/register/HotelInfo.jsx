@@ -8,7 +8,7 @@ import {
   useTheme
 } from "@mui/material";
 import React, {  useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { BookingModal } from "../../components/BookingModal";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "react-query";
@@ -19,8 +19,8 @@ export default function HotelInfo() {
   const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 
-  const params = useParams();
-  const { slug } = params;
+//   const params = useParams();
+//   const { slug } = params;
 
   const fetchHoteInfo = async () => {
     return data;

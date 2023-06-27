@@ -14,13 +14,13 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { db } from "../../lib/firebase";
-import {
-	formatDistance,
-	formatDistanceToNow,
-	formatISO,
-	getDate,
-	getDay,
-} from "date-fns";
+// import {
+// 	formatDistance,
+// 	formatDistanceToNow,
+// 	formatISO,
+// 	getDate,
+// 	getDay,
+// } from "date-fns";
 
 function createData(
 	HotelName,
