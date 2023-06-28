@@ -3,18 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { Container, Typography, Link, Box, Divider } from "@mui/material";
 import styled from "@emotion/styled";
 
-import SocialAuth from "../components/SocialAuth";
-import SignupForm from "../components/SignupForm";
-import Logo from "../components/Logo";
+import SocialAuth from "../../components/SocialAuth";
+import SignupForm from "../../components/SignupForm";
 import { motion } from "framer-motion";
-
-//////////////////////////////////
-const RootStyle = styled("div")({
-  background: "rgb(249, 250, 251)",
-  height: "100vh",
-  display: "grid",
-  placeItems: "center",
-});
+import { tokens } from "../../theme";
+import { useTheme } from "@emotion/react";
 
 const HeadingStyle = styled(Box)({
   textAlign: "center",
@@ -48,64 +41,62 @@ const fadeInUp = {
 };
 
 const Signup = ({ setAuth }) => {
+   const theme = useTheme();
+		const colors = tokens(theme.palette.mode);
   return (
-    <RootStyle>
-      <Container maxWidth="sm">
-        <ContentStyle>
-          <HeadingStyle component={motion.div} {...fadeInUp}>
-            <Logo />
+		<Box className="h-full grid center">
+			<Container maxWidth="sm">
+				<ContentStyle className="shadow-2xl rounded-3xl">
+					<HeadingStyle component={motion.div} {...fadeInUp}>
+						<Typography sx={{ color: colors.grey[400], mb: 5 }} variant="h5">
+							Enter your details below.
+						</Typography>
+					</HeadingStyle>
 
-            <Typography sx={{ color: "text.secondary", mb: 5 }}>
-              Enter your details below.
-            </Typography>
-          </HeadingStyle>
+					<SignupForm setAuth={setAuth} />
+					<Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
+						<Typography variant="body2" sx={{ color: colors.grey[400] }}>
+							OR Sign UP
+						</Typography>
+					</Divider>
+					<Box component={motion.div} {...fadeInUp}>
+						<SocialAuth />
+					</Box>
 
-          <Box component={motion.div} {...fadeInUp}>
-            <SocialAuth />
-          </Box>
+					<Typography
+						component={motion.p}
+						{...fadeInUp}
+						variant="body1"
+						align="center"
+						sx={{ color: colors.grey[400], mt: 2 }}
+					>
+						By registering, I agree to{" "}
+						<Link underline="always" color={colors.redAccent[600]} href="#">
+							Terms of Service
+						</Link>{" "}
+						&{" "}
+						<Link underline="always" color={colors.redAccent[600]} href="#">
+							Privacy Policy
+						</Link>
+						.
+					</Typography>
 
-          <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              OR
-            </Typography>
-          </Divider>
-
-          <SignupForm setAuth={setAuth} />
-
-          <Typography
-            component={motion.p}
-            {...fadeInUp}
-            variant="body2"
-            align="center"
-            sx={{ color: "text.secondary", mt: 2 }}
-          >
-            By registering, I agree to{" "}
-            <Link underline="always" color="text.primary" href="#">
-              Terms of Service
-            </Link>{" "}
-            &{" "}
-            <Link underline="always" color="text.primary" href="#">
-              Privacy Policy
-            </Link>
-            .
-          </Typography>
-
-          <Typography
-            component={motion.p}
-            {...fadeInUp}
-            variant="body2"
-            align="center"
-            sx={{ mt: 3 }}
-          >
-            Have an account?{" "}
-            <Link variant="subtitle2" component={RouterLink} to="/login">
-              Login
-            </Link>
-          </Typography>
-        </ContentStyle>
-      </Container>
-    </RootStyle>
-  );
+					<Typography
+						component={motion.p}
+						{...fadeInUp}
+						variant="body1"
+						align="center"
+						sx={{ mt: 3, color: colors.grey[400] }}
+					>
+						Have an account?{" "}
+						<Link variant="subtitle2" component={RouterLink} to="/">
+							Login
+						</Link>
+					</Typography>
+				</ContentStyle>
+			</Container>
+		</Box>
+	);
 };
 
 export default Signup;

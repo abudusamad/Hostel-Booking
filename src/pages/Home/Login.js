@@ -1,91 +1,110 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Container, Typography, Link, Box, Divider } from "@mui/material";
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import LoginForm from "../components/LoginForm";
-import SocialAuth from "../components/SocialAuth";
-import Logo from "../components/Logo";
+import { Box, Container, Divider, Link, Typography } from "@mui/material";
+import { signInWithPopup } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
-
-//////////////////////////////////
-const RootStyle = styled("div")({
-  background: "rgb(249, 250, 251)",
-  height: "100vh",
-  display: "grid",
-  placeItems: "center",
-});
+import React, { useEffect } from "react";
+import { toast } from "react-hot-toast";
+import { Link as RouterLink } from "react-router-dom";
+import LoginForm from "../../components/LoginForm";
+import SocialAuth from "../../components/SocialAuth";
+import { auth, db, provider } from "../../lib/firebase";
+import { tokens } from "../../theme";
 
 const HeadingStyle = styled(Box)({
-  textAlign: "center",
+	textAlign: "center",
 });
 
 const ContentStyle = styled("div")({
-  maxWidth: 480,
-  padding: 25,
-  margin: "auto",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  background: "#fff",
+	maxWidth: 480,
+	padding: 25,
+	margin: "auto",
+	display: "flex",
+	justifyContent: "center",
+	flexDirection: "column",
+	background: "#fff",
 });
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const fadeInUp = {
-  initial: {
-    y: 60,
-    opacity: 0,
-    transition: { duration: 0.6, ease: easing },
-  },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.6,
-      ease: easing,
-    },
-  },
+	initial: {
+		y: 60,
+		opacity: 0,
+		transition: { duration: 0.6, ease: easing },
+	},
+	animate: {
+		y: 0,
+		opacity: 1,
+		transition: {
+			duration: 0.6,
+			ease: easing,
+		},
+	},
 };
 
 const Login = ({ setAuth }) => {
-  return (
-    <RootStyle>
-      <Container maxWidth="sm">
-        <ContentStyle>
-          <HeadingStyle component={motion.div} {...fadeInUp}>
-            <Logo />
-            <Typography sx={{ color: "text.secondary", mb: 5 }}>
-              Login to your account
-            </Typography>
-          </HeadingStyle>
+	const theme = useTheme();
+	const colors = tokens(theme.palette.mode);
+	const handleLogin = async () => {
+		signInWithPopup(auth, provider)
+			.then(async (result) => {
+				const user = result.user;
+				if (user) {
+					await setDoc(doc(db, "users", user.uid), {
+						uid: user.uid,
+						displayName: user.displayName,
+						photoURL: user.photoURL,
+					});
+				}
+			})
+			.catch((error) => {
+				const errorMessage = error.message;
 
-          <Box component={motion.div} {...fadeInUp}>
-            <SocialAuth />
-          </Box>
+				toast.error(errorMessage);
+			});
+		
+	};
+	return (
+		<Box className="grid center h-full">
+			<Container maxWidth="sm">
+				<ContentStyle className="shadow-2xl rounded-3xl">
+					<HeadingStyle component={motion.div} {...fadeInUp}>
+						<Typography variant="h4" sx={{ color: colors.grey[400], mb: 5 }}>
+							Login to your account
+						</Typography>
+					</HeadingStyle>
 
-          <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              OR
-            </Typography>
-          </Divider>
+					<LoginForm setAuth={setAuth} />
 
-          <LoginForm setAuth={setAuth} />
-
-          <Typography
-            component={motion.p}
-            {...fadeInUp}
-            variant="body2"
-            align="center"
-            sx={{ mt: 3 }}
-          >
-            Don’t have an account?{" "}
-            <Link variant="subtitle2" component={RouterLink} to="/signup">
-              Sign up
-            </Link>
-          </Typography>
-        </ContentStyle>
-      </Container>
-    </RootStyle>
-  );
+					<Divider
+						sx={{ my: 3, color: colors.grey[100] }}
+						component={motion.div}
+						{...fadeInUp}
+					>
+						<Typography variant="body1" sx={{ color: colors.grey[400] }}>
+							OR Login With
+						</Typography>
+					</Divider>
+					<Box component={motion.div} {...fadeInUp}>
+						<SocialAuth onClick={handleLogin} />
+					</Box>
+					<Typography
+						component={motion.p}
+						{...fadeInUp}
+						variant="h6"
+						align="center"
+						sx={{ mt: 3, color: colors.grey[400] }}
+					>
+						Don’t have an account?{" "}
+						<Link variant="body1" component={RouterLink} to="/signup">
+							Sign up
+						</Link>
+					</Typography>
+				</ContentStyle>
+			</Container>
+		</Box>
+	);
 };
 
 export default Login;
