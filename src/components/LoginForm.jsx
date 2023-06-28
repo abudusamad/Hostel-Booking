@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
+import { useUserContext } from "../contexts/userContext";
 
 import {
   Box,
@@ -31,6 +32,11 @@ const animate = {
 };
 
 const LoginForm = ({ setAuth }) => {
+		 const emailRef = useRef();
+			const psdRef = useRef();
+	const { signInUser, forgotPassword } = useUserContext();
+
+
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -63,12 +69,28 @@ const LoginForm = ({ setAuth }) => {
     },
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
+
+		const onSubmit = (e) => {
+			e.preventDefault();
+			const email = emailRef.current.value;
+			const password = psdRef.current.value;
+			if (email && password) signInUser(email, password);
+		};
+
+		const forgotPasswordHandler = () => {
+			const email = emailRef.current.value;
+			if (email)
+				forgotPassword(email).then(() => {
+					emailRef.current.value = "";
+				});
+		};
+
+  const { errors, touched, values, isSubmitting, getFieldProps } =
     formik;
 
   return (
 		<FormikProvider value={formik}>
-			<Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+			<Form autoComplete="off" noValidate onSubmit= { onSubmit }>
 				<Box
 					component={motion.div}
 					animate={{
@@ -81,8 +103,8 @@ const LoginForm = ({ setAuth }) => {
 						sx={{
 							display: "flex",
 							flexDirection: "column",
-              gap: 3,
-              color:colors.grey[400]
+							gap: 3,
+							color: colors.grey[400],
 						}}
 						component={motion.div}
 						initial={{ opacity: 0, y: 40 }}
@@ -90,8 +112,8 @@ const LoginForm = ({ setAuth }) => {
 					>
 						<TextField
 							fullWidth
-              autoComplete="username"
-               sx={{color:colors.grey[400]}}
+							autoComplete="username"
+							sx={{ color: colors.grey[400] }}
 							type="email"
 							label="Email Address"
 							{...getFieldProps("email")}
@@ -153,6 +175,7 @@ const LoginForm = ({ setAuth }) => {
 								variant="subtitle2"
 								to="#"
 								underline="hover"
+								onClick={forgotPasswordHandler}
 							>
 								Forgot password?
 							</Link>

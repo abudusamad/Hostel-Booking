@@ -4,7 +4,7 @@ import { Box, Container, Divider, Link, Typography } from "@mui/material";
 import { signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 import { toast } from "react-hot-toast";
 import { Link as RouterLink } from "react-router-dom";
 import LoginForm from "../../components/LoginForm";
@@ -83,7 +83,7 @@ const Login = ({ setAuth }) => {
 						{...fadeInUp}
 					>
 						<Typography variant="body1" sx={{ color: colors.grey[400] }}>
-							OR Login With
+							OR Continue With
 						</Typography>
 					</Divider>
 					<Box component={motion.div} {...fadeInUp}>

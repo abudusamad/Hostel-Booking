@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { auth, db, provider } from "../lib/firebase";
 
+
 const SocialAuth = () => {
 	const navigate = useNavigate();
 
@@ -42,7 +43,7 @@ const SocialAuth = () => {
 						borderRadius: "5px",
 						padding: "0.5675rem",
 						flex: 1,
-					} }
+					}}
 					onClick={handleLogin}
 				>
 					<FcGoogle color="#DF3E30" width={22} height={22} />
@@ -54,6 +55,7 @@ const SocialAuth = () => {
 						padding: "0.5675rem",
 						flex: 1,
 					}}
+					onClick={handleLogin}
 				>
 					<BsGithub color="#1877F2" width={22} height={22} />
 				</IconButton>
