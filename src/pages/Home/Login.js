@@ -66,9 +66,9 @@ const Login = ({ setAuth }) => {
 		
 	};
 	return (
-		<Box className="grid center h-full">
+		<Box className="grid center h-screen">
 			<Container maxWidth="sm">
-				<ContentStyle className="shadow-2xl rounded-3xl">
+				<ContentStyle className="shadow-2xl rounded-3xl" style={{background:colors.primary[400]}}>
 					<HeadingStyle component={motion.div} {...fadeInUp}>
 						<Typography variant="h4" sx={{ color: colors.grey[400], mb: 5 }}>
 							Login to your account
@@ -97,7 +97,7 @@ const Login = ({ setAuth }) => {
 						sx={{ mt: 3, color: colors.grey[400] }}
 					>
 						Don’t have an account?{" "}
-						<Link variant="body1" component={RouterLink} to="/signup">
+						<Link variant="body1" component={RouterLink} to="/signup" sx={{color:colors.grey[400]}}>
 							Sign up
 						</Link>
 					</Typography>

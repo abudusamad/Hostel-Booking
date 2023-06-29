@@ -1,6 +1,5 @@
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import CloseIcon from "@mui/icons-material/Close";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -10,7 +9,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import { Box, IconButton, Tooltip, Typography, useTheme } from "@mui/material";
+import { Box, Tooltip, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { Menu, MenuItem, ProSidebar } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -73,7 +72,7 @@ const Sidebar = () => {
 			{activeMenu && (
 				<>
 					<ProSidebar collapsed={isCollapsed}>
-						<Menu iconShape="square">
+						<Menu iconShape="square" className="fixed left-0 top-0">
 							{/* LOGO AND MENU ICON */}
 							<MenuItem
 								onClick={() => setIsCollapsed(!isCollapsed)}
@@ -88,28 +87,10 @@ const Sidebar = () => {
 									) : undefined
 								}
 								style={{
-									margin: "10px 0 20px 0",
+									margin: "5px 0 5px 0",
 									color: colors.grey[100],
 								}}
-							>
-								{!isCollapsed && (
-									<Box
-										display="flex"
-										justifyContent="space-between"
-										alignItems="center"
-										ml="15px"
-									>
-										<Typography variant="h2" color={colors.grey[100]}>
-											HnH
-										</Typography>
-										<IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-											<Tooltip title="Close Menu">
-												<CloseIcon />
-											</Tooltip>
-										</IconButton>
-									</Box>
-								)}
-							</MenuItem>
+							></MenuItem>
 							<Box
 								paddingLeft={isCollapsed ? undefined : "10%"}
 								onClick={handleCloseSideBar}
@@ -212,10 +193,10 @@ const Sidebar = () => {
 									selected={selected}
 									setSelected={setSelected}
 								/>
-								<Box position="relative" top="8rem">
+								<Box position="relative" top="2rem">
 									<Item
 										title="Log In"
-										to="/LogIn"
+										to="/"
 										icon={<LogoutOutlinedIcon />}
 										selected={selected}
 										setSelected={setSelected}

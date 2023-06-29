@@ -6,7 +6,6 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-
 import {
 	AppBar,
 	Avatar,
@@ -156,7 +155,7 @@ const Topbar = () => {
 							}}
 						>
 							<IconButton>
-								<Tooltip title="Profile">
+								<Tooltip title="UserProfile">
 									<PersonOutlineOutlinedIcon />
 								</Tooltip>
 							</IconButton>

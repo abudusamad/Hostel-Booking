@@ -1,96 +1,93 @@
-import React, { useState, useRef} from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Form, FormikProvider, useFormik } from "formik";
+import React, { useRef, useState } from "react";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useUserContext } from "../contexts/userContext";
 
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  Link,
-  Stack,
-  TextField,
-} from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+import { useTheme } from "@emotion/react";
 import { Icon } from "@iconify/react";
+import { LoadingButton } from "@mui/lab";
+import {
+	Box,
+	Checkbox,
+	FormControlLabel,
+	IconButton,
+	InputAdornment,
+	Link,
+	Stack,
+	TextField,
+} from "@mui/material";
 import { motion } from "framer-motion";
 import { tokens } from "../theme";
-import { useTheme } from "@emotion/react";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
-  opacity: 1,
-  y: 0,
-  transition: {
-    duration: 0.6,
-    ease: easing,
-    delay: 0.16,
-  },
+	opacity: 1,
+	y: 0,
+	transition: {
+		duration: 0.6,
+		ease: easing,
+		delay: 0.16,
+	},
 };
 
 const LoginForm = ({ setAuth }) => {
-		 const emailRef = useRef();
-			const psdRef = useRef();
+	const emailRef = useRef();
+	const psdRef = useRef();
 	const { signInUser, forgotPassword } = useUserContext();
 
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const theme = useTheme();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
-  const from = location.state?.from?.pathname || "/";
+	const from = location.state?.from?.pathname || "/";
 
-  const [showPassword, setShowPassword] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Provide a valid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
+	const LoginSchema = Yup.object().shape({
+		email: Yup.string()
+			.email("Provide a valid email address")
+			.required("Email is required"),
+		password: Yup.string().required("Password is required"),
+	});
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      remember: true,
-    },
-    validationSchema: LoginSchema,
-    onSubmit: () => {
-      console.log("submitting...");
-      setTimeout(() => {
-        console.log("submited!!");
-        setAuth(true);
-        navigate(from, { replace: true });
-      }, 2000);
-    },
-  });
+	const formik = useFormik({
+		initialValues: {
+			email: "",
+			password: "",
+			remember: true,
+		},
+		validationSchema: LoginSchema,
+		onSubmit: () => {
+			console.log("submitting...");
+			setTimeout(() => {
+				console.log("submited!!");
+				setAuth(true);
+				navigate(from, { replace: true });
+			}, 2000);
+		},
+	});
 
+	const onSubmit = (e) => {
+		e.preventDefault();
+		const email = emailRef.current.value;
+		const password = psdRef.current.value;
+		if (email && password) signInUser(email, password);
+	};
 
-		const onSubmit = (e) => {
-			e.preventDefault();
-			const email = emailRef.current.value;
-			const password = psdRef.current.value;
-			if (email && password) signInUser(email, password);
-		};
+	const forgotPasswordHandler = () => {
+		const email = emailRef.current.value;
+		if (email)
+			forgotPassword(email).then(() => {
+				emailRef.current.value = "";
+			});
+	};
 
-		const forgotPasswordHandler = () => {
-			const email = emailRef.current.value;
-			if (email)
-				forgotPassword(email).then(() => {
-					emailRef.current.value = "";
-				});
-		};
+	const { errors, touched, values, isSubmitting, getFieldProps } = formik;
 
-  const { errors, touched, values, isSubmitting, getFieldProps } =
-    formik;
-
-  return (
+	return (
 		<FormikProvider value={formik}>
-			<Form autoComplete="off" noValidate onSubmit= { onSubmit }>
+			<Form autoComplete="off" noValidate onSubmit={onSubmit}>
 				<Box
 					component={motion.div}
 					animate={{
@@ -164,6 +161,7 @@ const LoginForm = ({ setAuth }) => {
 									<Checkbox
 										{...getFieldProps("remember")}
 										checked={values.remember}
+										sx={{ color: colors.grey[400] }}
 									/>
 								}
 								label="Remember me"
@@ -176,6 +174,7 @@ const LoginForm = ({ setAuth }) => {
 								to="#"
 								underline="hover"
 								onClick={forgotPasswordHandler}
+								sx={{ color: colors.grey[400] }}
 							>
 								Forgot password?
 							</Link>
@@ -187,6 +186,10 @@ const LoginForm = ({ setAuth }) => {
 							type="submit"
 							variant="contained"
 							loading={isSubmitting}
+							sx={{
+								backgroundColor: colors.greenAccent[600],
+							}}
+							className="text-white"
 						>
 							{isSubmitting ? "loading..." : "Login"}
 						</LoadingButton>

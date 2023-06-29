@@ -44,9 +44,12 @@ const Signup = ({ setAuth }) => {
    const theme = useTheme();
 		const colors = tokens(theme.palette.mode);
   return (
-		<Box className="h-full grid center">
+		<Box className="h-screen grid center">
 			<Container maxWidth="sm">
-				<ContentStyle className="shadow-2xl rounded-3xl">
+				<ContentStyle
+					className="shadow-2xl rounded-3xl"
+					style={{ background: colors.primary[400] }}
+				>
 					<HeadingStyle component={motion.div} {...fadeInUp}>
 						<Typography sx={{ color: colors.grey[400], mb: 5 }} variant="h5">
 							Enter your details below.
@@ -78,7 +81,6 @@ const Signup = ({ setAuth }) => {
 						<Link underline="always" color={colors.redAccent[600]} href="#">
 							Privacy Policy
 						</Link>
-						.
 					</Typography>
 
 					<Typography
@@ -89,7 +91,12 @@ const Signup = ({ setAuth }) => {
 						sx={{ mt: 3, color: colors.grey[400] }}
 					>
 						Have an account?{" "}
-						<Link variant="subtitle2" component={RouterLink} to="/">
+						<Link
+							variant="body1"
+							component={RouterLink}
+							to="/"
+							sx={{ color: colors.grey[400] }}
+						>
 							Login
 						</Link>
 					</Typography>

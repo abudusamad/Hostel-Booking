@@ -99,11 +99,11 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 		>
 			<Box sx={bookModalStyle}>
 				<Typography id="modal-modal-title" variant="h6" component="h2">
-					${hotelInfo?.pricePerNight} /night
+					${hotelInfo?.pricePerNight} /Per Year
 				</Typography>
 				<FormControl fullWidth sx={{ marginTop: 3 }}>
 					<InputLabel id="demo-simple-select-label">
-						Number of Guests
+						Number of Student
 					</InputLabel>
 					<Select
 						labelId="demo-simple-select-label"
@@ -144,7 +144,7 @@ export const BookingModal = ({ open, handleClose, hotelInfo }) => {
 						variant="h6"
 					>
 						${hotelInfo?.pricePerNight} x{" "}
-						{dates[0]?.endDate ? getTotalNightsBooked() : 0} nights
+						{dates[0]?.endDate ? getTotalNightsBooked() : 0} Per Year
 					</Typography>
 
 					<Typography

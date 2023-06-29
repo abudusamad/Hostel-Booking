@@ -97,11 +97,12 @@ export default function MyProfile() {
 					<Table sx={{ width: "100%" }} aria-label="simple table">
 						<TableHead>
 							<TableRow>
-								<TableCell>Hotel Name</TableCell>
-								<TableCell align="right">Hotel Address</TableCell>
+								<TableCell>Hostel Name</TableCell>
+								<TableCell align="right">Hostel Address</TableCell>
 								<TableCell align="right">Check In</TableCell>
 								<TableCell align="right">Check Out</TableCell>
-								<TableCell align="right">Number of guests</TableCell>
+								<TableCell align="right">Number of Student</TableCell>
+								<TableCell align="right">Gender</TableCell>
 								<TableCell align="right">Price</TableCell>
 							</TableRow>
 						</TableHead>
