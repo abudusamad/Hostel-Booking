@@ -19,9 +19,6 @@ export default function HotelInfo() {
   const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 
-//   const params = useParams();
-//   const { slug } = params;
-
   const fetchHoteInfo = async () => {
     return data;
   };
