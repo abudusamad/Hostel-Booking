@@ -41,7 +41,7 @@ const Topbar = () => {
 		handleResize();
 
 		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+	}, [setScreenSize]);
 
 	useEffect(() => {
 		if (screenSize <= 900) {
@@ -49,7 +49,7 @@ const Topbar = () => {
 		} else {
 			setActiveMenu(true);
 		}
-	}, [screenSize]);
+	}, [screenSize, setActiveMenu]);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -126,7 +126,7 @@ const Topbar = () => {
 					<Tooltip title="UserProfile">
 						<Avatar
 							src={currentUser?.photoURL}
-							sx={{ width: 35, height: 35 }}
+							sx={{ width:32, height:32 }}
 						/>
 					</Tooltip>
 				</IconButton>

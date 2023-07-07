@@ -2,6 +2,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Home/Login";
+import Signup from "./pages/Home/Signup";
 import HotelInfo from "./pages/register/HotelInfo";
 import MyProfile from "./pages/register/MyProfile.jsx";
 import ComponentList from "./scenes/bar";
@@ -13,18 +15,13 @@ import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
 import Invoices from "./scenes/invoices";
 import { ColorModeContext, useMode } from "./theme";
-import Login from "./pages/Home/Login";
-import Signup from "./pages/Home/Signup";
-
 
 function App() {
 	const [theme, colorMode] = useMode();
 	const [isSidebar, setIsSidebar] = useState(true);
 	const [setAuth] = useState(false);
 
-
 	const queryClient = new QueryClient();
-
 
 	return (
 		<ColorModeContext.Provider value={colorMode}>
