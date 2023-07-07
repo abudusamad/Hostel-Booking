@@ -56,7 +56,7 @@ const Topbar = () => {
 	}, [screenSize]);
 	 useEffect(() => {
 			const fetchData = async () => {
-				const res = await axios.get(`http://localhost:5000?q=${query}`);
+				const res = await axios.get(`http://localhost:React App?q=${query}`);
 				setData(res.data);
 			};
 			if (query.length === 0 || query.length > 2) fetchData();
