@@ -52,7 +52,7 @@ export default function MyProfile() {
 		if (!currentUser) return;
 		const bookings = query(
 			collection(db, "bookings"),
-			where("bookedBy.uid", "==", currentUser?.uid)
+			where("hostel.uid", "==", currentUser?.uid)
 		);
 		const unsubscribe = onSnapshot(bookings, (snapshot) => {
 			setBookings(
@@ -65,7 +65,7 @@ export default function MyProfile() {
 		return () => {
 			unsubscribe();
 		};
-	}, []);
+	}, [currentUser]);
 
 	return (
 		<>
