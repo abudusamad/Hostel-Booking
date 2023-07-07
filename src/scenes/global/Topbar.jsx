@@ -32,7 +32,7 @@ const Topbar = () => {
 	const colors = tokens(theme.palette.mode);
 	const colorMode = useContext(ColorModeContext);
 	const { currentUser } = useContext(AuthContext);
-	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
+	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =\
 		useStateContext();
 	const [query, setQuery] = useState("");
 	const [data, setData] = useState([]);
