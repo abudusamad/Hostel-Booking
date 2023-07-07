@@ -6,6 +6,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import axios from "axios";
 
 import {
 	AppBar,
@@ -19,7 +20,7 @@ import {
 	useTheme,
 } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useStateContext } from "../../contexts/ContextProvider";
@@ -33,6 +34,8 @@ const Topbar = () => {
 	const { currentUser } = useContext(AuthContext);
 	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
 		useStateContext();
+	const [query, setQuery] = useState("");
+	const [data, setData] = useState([]);
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -51,6 +54,14 @@ const Topbar = () => {
 			setActiveMenu(true);
 		}
 	}, [screenSize]);
+	 useEffect(() => {
+			const fetchData = async () => {
+				const res = await axios.get(`http://localhost:5000?q=${query}`);
+				setData(res.data);
+			};
+			if (query.length === 0 || query.length > 2) fetchData();
+		}, [query]);
+
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -86,6 +97,7 @@ const Topbar = () => {
 					<InputBase
 						sx={{ ml: 2, flex: 1, width: "75%" }}
 						placeholder="Search"
+						onChange={(e) => setQuery(e.target.value.toLowerCase())}
 					/>
 					<IconButton type="button" sx={{ p: 1 }}>
 						<SearchIcon />

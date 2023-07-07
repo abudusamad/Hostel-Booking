@@ -5,10 +5,12 @@ import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
 import { useNavigate } from "react-router-dom";
 
+
 const HostelList = ({reserve}) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
+	
 
 	const handleLike = (index) => {
 		const isLiked = likedItems.includes(index);
