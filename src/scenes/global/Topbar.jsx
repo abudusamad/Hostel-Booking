@@ -26,7 +26,6 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { auth } from "../../lib/firebase";
 import { ColorModeContext, tokens } from "../../theme";
-
 const Topbar = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
