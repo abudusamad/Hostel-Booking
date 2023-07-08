@@ -75,21 +75,6 @@ const Topbar = () => {
 						<MenuOutlinedIcon onClick={handleActiveMenu} />
 					</Tooltip>
 				</IconButton>
-
-				<Box
-					display="flex"
-					backgroundColor={colors.primary[400]}
-					borderRadius="3px"
-					marginLeft="10px"
-				>
-					<InputBase
-						sx={{ ml: 2, flex: 1, width: "75%" }}
-						placeholder="Search"
-					/>
-					<IconButton type="button" sx={{ p: 1 }}>
-						<SearchIcon />
-					</IconButton>
-				</Box>
 			</Box>
 
 			{/* ICONS */}
