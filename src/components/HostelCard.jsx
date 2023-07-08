@@ -2,15 +2,18 @@ import { useTheme } from "@emotion/react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
+import axios from "axios";
 
 const HostelList = ({ reserve }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
+	const [query, setQuery] = useState("");
+	const [data, setData] = useState([]);
 
 	const handleLike = (index) => {
 		const isLiked = likedItems.includes(index);
@@ -24,6 +27,14 @@ const HostelList = ({ reserve }) => {
 		}
 	};
 	const navigate = useNavigate();
+	useEffect(() => {
+		const fetchData = async () => {
+			const res = await axios.get(`http://localhost:ReacApp?q=${query}`);
+			setData(res.data);
+		};
+		if (query.length === 0 || query.length > 2) fetchData();
+	}, [query]);
+
 
 	return (
 		<div>
@@ -37,6 +48,7 @@ const HostelList = ({ reserve }) => {
 					<InputBase
 						sx={{ ml: 2, flex: 1, width: "75%" }}
 						placeholder="Search"
+						onChange={(e) => setQuery(e.target.value.toLowerCase())}
 					/>
 					<IconButton type="button" sx={{ p: 1 }}>
 						<SearchIcon />
@@ -61,6 +73,7 @@ const HostelList = ({ reserve }) => {
 									height: "60%",
 								}}
 								onClick={() => navigate("/reserve")}
+								data={data}
 							/>
 							<Box display="flex" flexDirection="column">
 								<Typography
