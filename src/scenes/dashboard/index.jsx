@@ -1,14 +1,18 @@
 import { Box } from "@mui/material";
 import HostelList from "../../components/HostelCard";
+import { LoadingSkeleton } from "../../components/LoadingSkeleton";
+import { useState } from "react";
 
 const Dashboard = () => {
-	return (
-		<Box m="20px">
-			<Box>
+		const {  isLoading } = useState("")
+
+		return isLoading ? (
+			<LoadingSkeleton />
+		) : (
+				<Box margin='20px'>
+					<HostelList/>
 			</Box>
-				<HostelList />
-		</Box>
-	);
+		);
 };
 
 export default Dashboard;
