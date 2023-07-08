@@ -1,11 +1,13 @@
 import { useTheme } from "@emotion/react";
+import SearchIcon from "@mui/icons-material/Search";
 import { Box, Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import InputBase from "@mui/material/InputBase";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
-import { useNavigate } from "react-router-dom";
 
-const HostelList = ({reserve}) => {
+const HostelList = ({ reserve }) => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
@@ -21,10 +23,26 @@ const HostelList = ({reserve}) => {
 			setLikedItems(updatedItems);
 		}
 	};
-	const navigate =useNavigate()
+	const navigate = useNavigate();
 
 	return (
 		<div>
+			<Box className="my-4 w-52 relative left-0 ">
+				<Box
+					display="flex"
+					backgroundColor={colors.primary[400]}
+					borderRadius="3px"
+					marginLeft="10px"
+				>
+					<InputBase
+						sx={{ ml: 2, flex: 1, width: "75%" }}
+						placeholder="Search"
+					/>
+					<IconButton type="button" sx={{ p: 1 }}>
+						<SearchIcon />
+					</IconButton>
+				</Box>
+			</Box>
 			<Box sx={{ flexGrow: 1 }}>
 				<Grid container spacing={1}>
 					{hostels?.map((hostel, index) => (
@@ -42,7 +60,7 @@ const HostelList = ({reserve}) => {
 									width: "auto",
 									height: "60%",
 								}}
-								onClick={( )=> navigate('/reserve')}
+								onClick={() => navigate("/reserve")}
 							/>
 							<Box display="flex" flexDirection="column">
 								<Typography

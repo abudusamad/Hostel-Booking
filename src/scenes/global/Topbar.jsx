@@ -4,7 +4,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import SearchIcon from "@mui/icons-material/Search";
+
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import {
 	AppBar,
@@ -17,7 +17,6 @@ import {
 	Tooltip,
 	useTheme,
 } from "@mui/material";
-import InputBase from "@mui/material/InputBase";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
