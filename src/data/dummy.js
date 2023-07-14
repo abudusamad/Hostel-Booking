@@ -476,6 +476,40 @@ export const customersGrid = [
     isPrimaryKey: true,
   },
 ];
+export const bookings = [
+	{
+		image: product1,
+	},
+	{
+		image: product2,
+	},
+	{
+		image: product3,
+	},
+
+	{
+		image: product4,
+	},
+
+	{
+		image: product5,
+	},
+
+	{
+		image: product6,
+	},
+
+	{
+		image: product7,
+	},
+	{
+		image: product8,
+	},
+
+	{
+		image: product9,
+	},
+];
 
 export const hostels = [
   {

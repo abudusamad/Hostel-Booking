@@ -15,7 +15,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
 import Invoices from "./scenes/invoices";
 import { ColorModeContext, useMode } from "./theme";
-import { ImageGallery } from "./pages/ImageGallery";
+import { ImageGallery } from "./pages/register/ImageGallery";
 
 function App() {
 	const [theme, colorMode] = useMode();
