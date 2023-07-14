@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
-import { BookingModal } from "../components/BookingModal";
+import { BookingModal } from "../../components/BookingModal";
 import { bookings } from "../../data/dummy";
 
 export const ImageGallery = () => {

@@ -1,17 +1,18 @@
 import { useTheme } from "@emotion/react";
+import SearchIcon from "@mui/icons-material/Search";
 import { Box, Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import InputBase from "@mui/material/InputBase";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { hostels } from "../data/dummy";
 import { tokens } from "../theme";
-import { useNavigate } from "react-router-dom";
 
-
-const HostelList = ({reserve}) => {
+const HostelList = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const [likedItems, setLikedItems] = useState([]);
-	
-
+	const [query, setQuery] = useState("");
+	const [filteredData, setFilteredData] = useState(hostels);
 	const handleLike = (index) => {
 		const isLiked = likedItems.includes(index);
 
@@ -23,16 +24,48 @@ const HostelList = ({reserve}) => {
 			setLikedItems(updatedItems);
 		}
 	};
-	const navigate = useNavigate()
-	const liked = false;
+	const navigate = useNavigate();
+	const handleInputChange = (e) => {
+		const inputValue = e.target.value;
+		setQuery(inputValue);
+
+		if (inputValue === "") {
+			setFilteredData(hostels); // Reset to original data when input is empty
+		} else {
+			const filteredResults = hostels.filter(
+				(item) =>
+					item.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+					item.address.toLowerCase().includes(inputValue.toLowerCase()) ||
+					item.namLoc.toLowerCase().includes(inputValue.toLowerCase())
+			);
+			setFilteredData(filteredResults);
+		}
+	};
 
 	return (
 		<div>
+			<Box className="my-4 w-52 relative left-0 ">
+				<Box
+					display="flex"
+					backgroundColor={colors.primary[400]}
+					borderRadius="3px"
+					marginLeft="10px"
+				>
+					<InputBase
+						sx={{ ml: 2, flex: 1, width: "75%" }}
+						placeholder="Search"
+						value={query}
+						onChange={handleInputChange}
+					/>
+					<IconButton type="button" sx={{ p: 1 }}>
+						<SearchIcon />
+					</IconButton>
+				</Box>
+			</Box>
 			<Box sx={{ flexGrow: 1 }}>
 				<Grid container spacing={1}>
-					{hostels?.map((hostel, index) => (
+					{(hostels, filteredData).map((hostel, index) => (
 						<Grid
-							key={index}
 							xs={12}
 							md={3}
 							className="mx-3 my-5 rounded-2xl  shadow-2xl"
@@ -45,7 +78,8 @@ const HostelList = ({reserve}) => {
 									width: "auto",
 									height: "60%",
 								}}
-								onClick={( )=> navigate('/reserve')}
+								onClick={() => navigate("/hostels")}
+								key={hostel.id}
 							/>
 							<Box display="flex" flexDirection="column">
 								<Typography
@@ -103,7 +137,7 @@ const HostelList = ({reserve}) => {
 											className={likedItems.includes(index) ? "Liked" : ""}
 										>
 											{likedItems.includes(index) ? "Liked" : "like"}
-											<IconButton>{liked ? (hostel.favLiked ): (hostel.fav)}</IconButton>
+											<IconButton>{hostel.favourite}</IconButton>
 										</button>
 										<Box
 											display="flex"
