@@ -31,7 +31,7 @@ const Topbar = () => {
 	const colors = tokens(theme.palette.mode);
 	const colorMode = useContext(ColorModeContext);
 	const { currentUser } = useContext(AuthContext);
-	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =\
+	const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
 		useStateContext();
 	const [query, setQuery] = useState("");
 	const [data, setData] = useState([]);
@@ -44,7 +44,7 @@ const Topbar = () => {
 		handleResize();
 
 		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+	}, [setScreenSize]);
 
 	useEffect(() => {
 		if (screenSize <= 900) {
@@ -52,7 +52,7 @@ const Topbar = () => {
 		} else {
 			setActiveMenu(true);
 		}
-	}, [screenSize]);
+	}, [screenSize, setActiveMenu]);
 	 useEffect(() => {
 			const fetchData = async () => {
 				const res = await axios.get(`http://localhost:React App?q=${query}`);
